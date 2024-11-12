@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: task_cli_upgrade_deploy.html 
+keywords: administer, administering, cli, deploy, upgrade deploy 
+summary: Sie können ein vorhandenes Deploy Utility Virtual Machine direkt über die Befehlszeilenschnittstelle aktualisieren. 
+---
+= Aktualisieren einer Deploy-Instanz
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können ein vorhandenes Deploy Utility Virtual Machine direkt über die Befehlszeilenschnittstelle aktualisieren.
+
+
+
+== Bevor Sie beginnen
+
+Stellen Sie sicher, dass Deploy nicht zur Durchführung anderer Aufgaben während des Upgrades verwendet wird. In den aktuellen Versionshinweisen finden Sie Informationen und Einschränkungen zum Upgrade des Deploy-Dienstprogramms.
+
+
+NOTE: Wenn Sie eine ältere Instanz des ONTAP Select Deploy-Verwaltungsdienstprogramms installiert haben, sollten Sie auf die aktuelle Version aktualisieren. Der ONTAP Select Node und die ONTAP Select Deploy Komponente werden unabhängig voneinander aktualisiert. Weitere Informationen finden Sie unter link:concept_adm_upgrading_nodes.html["Aktualisieren Sie die ONTAP Select-Nodes"^] .
+
+
+
+== Upgrade-Paket herunterladen
+
+Um mit dem Upgrade-Prozess zu beginnen, müssen Sie die entsprechende Upgrade-Datei für die Implementierung von Virtual Machines von der NetApp Support Site herunterladen. Das Aktualisierungspaket ist als eine einzige komprimierte Datei formatiert.
+
+.Schritte
+. Greifen Sie über einen Webbrowser auf das zu und wählen Sie im Download-Menü die link:https://mysupport.netapp.com/site/["NetApp Support-Website"^]Option *Downloads*.
+. Scrollen Sie nach unten und wählen Sie *ONTAP Select Deploy Upgrade* aus.
+. Wählen Sie die gewünschte Version des Aktualisierungspakets aus.
+. Lesen Sie die Endbenutzer-Lizenzvereinbarung (EULA), und wählen Sie *Accept & Continue* aus.
+. Wählen Sie das entsprechende Paket aus, und laden Sie es herunter. Gehen Sie dabei auf alle Eingabeaufforderungen für Ihre Umgebung ein.
+
+
+
+
+== Laden Sie das Paket auf die virtuelle Maschine bereitstellen hoch
+
+Nach dem Erwerb des Aktualisierungspakets müssen Sie die Datei auf die virtuelle Maschine bereitstellen hochladen.
+
+.Bevor Sie beginnen
+Die Upgrade-Datei muss auf Ihrer lokalen Arbeitsstation verfügbar sein. Sie müssen außerdem das Kennwort für das Administratorbenutzerkonto besitzen.
+
+.Informationen zu diesen Aufgaben
+Diese Aufgabe beschreibt eine Methode zum Hochladen der Datei auf die virtuelle Maschine bereitstellen. Möglicherweise gibt es weitere für Ihre Umgebung geeignetere Optionen.
+
+.Schritte
+. Verwenden Sie in einer Befehlsshell auf Ihrer lokalen Workstation das Dienstprogramm scp, um die Image-Datei auf die virtuelle Maschine bereitzustellen.
++
+Beispiel
+
++
+....
+scp ONTAPdeploy2.12_upgrade.tar.gz admin@10.228.162.221:/home/admin (provide password when prompted)
+....
+
+
+.Ergebnis
+Die Upgrade-Datei wird im Home-Verzeichnis des Admin-Benutzers gespeichert.
+
+
+
+== Upgrade-Paket anwenden
+
+Nachdem die Upgrade-Datei auf die virtuelle Maschine bereitstellen hochgeladen wurde, können Sie das Upgrade anwenden.
+
+.Bevor Sie beginnen
+Sie müssen wissen, in welchem Verzeichnis die Upgrade-Datei in der virtuellen Maschine Deploy Utility gespeichert wurde. Stellen Sie außerdem sicher, dass die Implementierung während des Upgrades nicht für andere Aufgaben verwendet wird.
+
+.Schritte
+. Melden Sie sich in der CLI des Bereitstellungsdienstprogramms mithilfe von SSH mit dem Administratorkonto an.
+. Führen Sie das Upgrade mithilfe des entsprechenden Verzeichnispfads und Dateinamens durch:
++
+`deploy upgrade -package-path FILEPATH`
+
++
+Beispiel
+
++
+....
+deploy upgrade -package-path /home/admin/ONTAPdeploy2.12_upgrade.tar.gz
+....
+
+
+.Nachdem Sie fertig sind
+Bevor das Upgrade abgeschlossen ist, werden Sie aufgefordert, ein Backup der Konfiguration der virtuellen Maschine bereitstellen zu erstellen. Außerdem sollten Sie den Browser-Cache löschen, damit Sie die neu erstellten Deploy-Seiten anzeigen können.

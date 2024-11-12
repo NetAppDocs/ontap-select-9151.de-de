@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: task_cli_clusters.html 
+keywords: administer, administering, cli, clusters 
+summary: Es gibt verschiedene zugehörige Aufgaben, die Sie zum Verwalten eines ONTAP Select Clusters durchführen können. 
+---
+= ONTAP Select Cluster
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Es gibt verschiedene zugehörige Aufgaben, die Sie zum Verwalten eines ONTAP Select Clusters durchführen können.
+
+
+
+== Löschen Sie einen ONTAP Select-Cluster
+
+Sie können ein ONTAP Select Cluster löschen, wenn es nicht mehr mithilfe der Befehlszeilenschnittstelle benötigt wird.
+
+.Über diese Aufgabe
+Der Cluster muss sich im Offlinezustand befinden.
+
+.Schritte
+. Melden Sie sich über das Administratorkonto bei der CLI für virtuelle Maschinen bereitstellen an.
+. Zeigt den Cluster-Status an:
+`cluster show -name CLUSTERNAME`
+. Wenn das Cluster nicht offline ist, verschieben Sie es in den Offline-Status:
+`cluster offline -name CLUSTERNAME`
+. Nachdem Sie bestätigt haben, dass sich das Cluster im Offline-Status befindet, löschen Sie das Cluster:
+`cluster delete -name CLUSTERNAME`
+

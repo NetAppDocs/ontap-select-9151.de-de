@@ -1,0 +1,125 @@
+---
+sidebar: sidebar 
+permalink: concept_stor_eff_support.html 
+keywords: ontap select, storage efficiency support 
+summary: ONTAP Select bietet Storage-Effizienz-Optionen, die den auf FAS und AFF Arrays vorhandenen Optionen für Storage-Effizienz ähnlich sind. 
+---
+= Support für Storage-Effizienz
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Select bietet Storage-Effizienz-Optionen, die den auf FAS und AFF Arrays vorhandenen Optionen für Storage-Effizienz ähnlich sind.
+
+Virtuelle ONTAP Select NAS-Implementierungen mit rein Flash-basiertem VSAN oder generischen Flash-Arrays sollten den Best Practices für ONTAP Select mit Direct-Attached Storage (das) anderer SSDs folgen.
+
+Bei neuen Installationen wird automatisch eine All Flash FAS Persönlichkeit aktiviert, sofern Sie das-Storage mit SSD-Laufwerken und eine Premiumlizenz haben.
+
+Dank All Flash FAS Persönlichkeit werden die folgenden Inline-SE-Funktionen während der Installation automatisch aktiviert:
+
+* Inline-Erkennung von Null-Mustern
+* Inline-Deduplizierung von Volume
+* Hintergrund-Deduplizierung des Volume
+* Anpassungsfähige Inline-Komprimierung
+* Inline-Data-Compaction
+* Inline-Deduplizierung von Aggregaten
+* Deduplizierung im Hintergrund eines Aggregats
+
+
+Führen Sie den folgenden Befehl für ein neu erstelltes Volume aus, um zu überprüfen, ob ONTAP Select alle standardmäßigen Storage-Effizienzrichtlinien aktiviert hat:
+
+[listing]
+----
+<system name>::> set diag
+Warning: These diagnostic commands are for use by NetApp personnel only.
+Do you want to continue? {y|n}: y
+twonode95IP15::*> sis config
+Vserver:                                SVM1
+Volume:                                 _export1_NFS_volume
+Schedule                                -
+Policy:                                 auto
+Compression:                            true
+Inline Compression:                     true
+Compression Type:                       adaptive
+Application IO Si                       8K
+Compression Algorithm:                  lzopro
+Inline Dedupe:                          true
+Data Compaction:                        true
+Cross Volume Inline Deduplication:      true
+Cross Volume Background Deduplication:  true
+----
+
+NOTE: Für ONTAP Select Upgrades von 9.6 und höher müssen Sie ONTAP Select auf das SSD Storage mit einer Premiumlizenz installieren. Außerdem müssen Sie während der ersten Cluster-Installation mit ONTAP Deploy das Kontrollkästchen *Storage-Effizienz* aktivieren* aktivieren. Wenn die Bedingungen noch nicht erfüllt sind, muss nach dem ONTAP Upgrade eine AFF-ähnliche Persönlichkeit erstellt werden, um ein Boot-Argument und einen Node-Neustart zu ermöglichen. Weitere Informationen erhalten Sie vom technischen Support.
+
+.ONTAP Select Storage-Effizienzfunktionen
+Die folgende Tabelle fasst die verschiedenen verfügbaren, standardmäßig aktivierten und nicht standardmäßig aktivierten Storage-Effizienztechnologien zusammen, jedoch empfohlen, je nach Medientyp und Softwarelizenz.
+
+[cols="4"]
+|===
+| Funktionen der ONTAP Select | DAS SSD (Premium oder Premium XL^1^) | DAS HDD (alle Lizenzen) | VNAS (alle Lizenzen) 
+
+
+| Inline-Zero-Erkennung | Ja (Standard) | Ja, die Funktion ist für Benutzer auf Volume-Basis aktiviert | Ja, die Funktion ist für Benutzer auf Volume-Basis aktiviert 
+
+
+| Inline-Deduplizierung von Volume | Ja (Standard) | Nicht verfügbar | Nicht unterstützt 
+
+
+| 32.000 Inline-Komprimierung (sekundäre Komprimierung) | Ja, die Funktion ist für Benutzer pro Volume aktiviert. | Ja, die Funktion ist für Benutzer auf Volume-Basis aktiviert | Nicht unterstützt 
+
+
+| 8 KB Inline-Komprimierung (anpassungsfähige Komprimierung) | Ja (Standard) | Ja, die Funktion ist für Benutzer pro Volume aktiviert | Nicht unterstützt 
+
+
+| Hintergrund-Komprimierung | Nicht unterstützt | Ja, die Funktion ist für Benutzer pro Volume aktiviert | Ja, die Funktion ist für Benutzer auf Volume-Basis aktiviert 
+
+
+| Komprimierungsscanner | Ja. | Ja. | Ja, die Funktion ist für Benutzer auf Volume-Basis aktiviert 
+
+
+| Inline-Data-Compaction | Ja (Standard) | Ja, die Funktion ist für Benutzer pro Volume aktiviert | Nicht unterstützt 
+
+
+| Verdichtescanner | Ja. | Ja. | Nicht unterstützt 
+
+
+| Inline-Deduplizierung von Aggregaten | Ja (Standard) | K. A. | Nicht unterstützt 
+
+
+| Hintergrund-Deduplizierung des Volume | Ja (Standard) | Ja, die Funktion ist für Benutzer pro Volume aktiviert | Ja, die Funktion ist für Benutzer auf Volume-Basis aktiviert 
+
+
+| Deduplizierung im Hintergrund eines Aggregats | Ja (Standard) | K. A. | Nicht unterstützt 
+|===
+[Small]#^1^ONTAP Select 9.6 unterstützt eine neue Lizenz (Premium XL) und eine neue VM-Größe (groß). Die große VM wird jedoch nur bei das-Konfigurationen unter Verwendung von Software-RAID unterstützt. Hardware-RAID und vNAS Konfigurationen werden von der großen ONTAP Select VM in Version 9.6 nicht unterstützt.#
+
+.Hinweise zum Upgrade-Verhalten bei das SSD-Konfigurationen
+Warten Sie nach dem Upgrade auf ONTAP Select 9.6 oder höher, bis der `system node upgrade-revert show` Befehl angibt, dass das Upgrade abgeschlossen ist, bevor Sie die Storage-Effizienzwerte für vorhandene Volumes überprüfen.
+
+Bei einem System, das auf ONTAP Select 9.6 oder höher aktualisiert wurde, weist ein auf einem vorhandenen Aggregat oder einem neu erstellten Aggregat dasselbe Verhalten auf wie ein auf einer neuen Implementierung erstelltes Volume. Für vorhandene Volumes, die dem ONTAP Select Code Upgrade unterzogen werden, liegen die meisten Storage-Effizienzrichtlinien wie für ein neu erstelltes Volume vor, wobei einige Variationen bestehen:
+
+Szenario 1:: Wenn vor dem Upgrade keine Storage-Effizienzrichtlinien für ein Volume aktiviert wurden, gilt Folgendes:
++
+--
+* In den Volumes `space guarantee = volume` sind keine Inline-Data-Compaction, Inline-Deduplizierung für Aggregate und Hintergrund-Deduplizierung für Aggregate aktiviert. Diese Optionen können nach dem Upgrade aktiviert werden.
+* Auf Volumes `space guarantee = none` ohne aktivierte Hintergrundkomprimierung. Diese Option kann nach dem Upgrade aktiviert werden.
+* Die Storage-Effizienzrichtlinie für die vorhandenen Volumes ist nach einem Upgrade auf automatisch festgelegt.
+
+
+--
+Szenario 2:: Wenn bereits vor dem Upgrade einige Storage-Effizienzen auf einem Volume aktiviert sind, dann:
++
+--
+* Volumes mit `space guarantee = volume` sehen nach dem Upgrade keinen Unterschied.
+* Auf Volumes mit `space guarantee = none` aktivierter Aggregatbackground-Deduplizierung.
+* Bei Volumes `storage policy inline-only` ist ihre Richtlinie auf „automatisch“ eingestellt.
+* Bei Volumes mit benutzerdefinierten Storage-Effizienz-Richtlinien ändern sich die Richtlinien nicht, mit Ausnahme von Volumes mit `space guarantee = none`. Diese Volumes sind durch Deduplizierung im Hintergrund für die Aggregate aktiviert.
+
+
+--
+
