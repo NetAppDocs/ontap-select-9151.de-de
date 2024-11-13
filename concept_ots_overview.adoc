@@ -87,7 +87,6 @@ Mehrere ONTAP Funktionen werden von ONTAP Select nicht unterstützt. In den meis
 
 * Autonomer Schutz durch Ransomware (ARP)
 * Cluster-IPspace jede Änderung am Cluster-IPspace, einschließlich Hinzufügen oder Entfernen von Ports, virtuellen LANs (VLANs) oder Link-Aggregationsgruppen wird nicht unterstützt.
-* ESXi 8.0 U3
 * Fibre Channel und Fibre Channel over Ethernet werden nicht unterstützt.
 * Der Systemzustand überwacht das herkömmliche System-Monitoring, das bei einer hardwarebasierten ONTAP-Implementierung verwendet wird, bezieht sich auf die zugrunde liegenden Hardwarekomponenten. Aufgrund der mit ONTAP Select verwendeten virtualisierten Umgebung sind Zustandsüberwachung nicht aktiv.
 * Schnittstellengruppen Schnittstellengruppen werden nicht unterstützt.

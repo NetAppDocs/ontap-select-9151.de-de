@@ -42,6 +42,7 @@ ONTAP Select kann auf folgenden Hypervisoren implementiert werden:
 * VMware ESXi 7.0 GA (Build 15843807 oder höher) einschließlich 7.0 U1, U2 und U3C
 * VMware ESXi 8.0 GA (Build 20513097)
 * VMware ESXi 8.0 U1 (Build 21495797)
+* VMware ESXi 8.0 U3 (verfügbar für ONTAP 9.15.1P4 oder eine neuere verfügbare Patch-Version)
 
 
 
