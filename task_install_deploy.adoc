@@ -22,6 +22,9 @@ Sie müssen das ONTAP Select Deploy-Administrationsprogramm installieren und das
 
 Das ONTAP Select Paket können Sie auf der NetApp Support-Webseite herunterladen.
 
+.Bevor Sie beginnen
+https://mysupport.netapp.com/site/user/registration["Sie verfügen über ein registriertes NetApp Support Site Konto"^].
+
 .Über diese Aufgabe
 Das Dienstprogramm ONTAP Select Deploy Administration ist als virtuelle Maschine (VM) auf Basis des OVF-Standards (Open Virtualization Format) verpackt. Die einzelne komprimierte Datei hat das Suffix `ova`. Die VM stellt die bereitzustellenden Server- und Installations-Images für ONTAP Select Nodes zur Verfügung.
 
