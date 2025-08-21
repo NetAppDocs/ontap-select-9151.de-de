@@ -52,3 +52,7 @@ Sie können ein ONTAP Select Evaluation Cluster auf eine Produktionslizenz aktua
 
 
 Weitere Informationen finden Sie unter link:task_adm_licenses.html["Umwandeln einer Evaluierungslizenz in eine Produktionslizenz"] .
+
+.Verwandte Informationen
+* link:concept_lic_production.html["Erfahren Sie mehr über Lizenzen für Produktionsbereitstellungen"]
+

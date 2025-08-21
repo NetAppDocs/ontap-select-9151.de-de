@@ -14,9 +14,20 @@ summary: Ab ONTAP Select 9.15.1 können Sie die Größe eines vorhandenen Cluste
 
 
 [role="lead"]
-Ab ONTAP Select 9.15.1 können Sie die Größe eines vorhandenen Clusters von sechs auf acht Nodes erhöhen und die Clustergröße von acht auf sechs Nodes verringern. Es werden keine anderen Cluster-Erweiterungs- oder -Kontraktionsszenarien unterstützt.
+Ab ONTAP Select 9.15.1 können Sie die Größe eines vorhandenen Clusters von sechs auf acht Nodes erhöhen und die Clustergröße von acht auf sechs Nodes verringern.
 
-Das Verfahren wird über ONTAP Select Deploy über die CLI, API oder Webschnittstelle gestartet.
+Die folgenden Clustererweiterungen und -kontraktionen werden nicht unterstützt:
+
+* Erweiterungen von Clustern mit einem, zwei oder vier Knoten auf Cluster mit sechs oder acht Knoten.
+* Kontraktionen von Clustern mit sechs oder acht Knoten auf Cluster mit einem, zwei oder vier Knoten.
+
+
+[NOTE]
+====
+Um die Anzahl der Knoten in einem Cluster auf eine Größe zu ändern, die durch die Clustererweiterung oder -verkleinerung nicht unterstützt wird, müssen Sie die folgenden Aufgaben ausführen: . Stellen Sie einen neuen Cluster mit mehreren Knoten bereit, indem Sie den link:task_cli_deploy_cluster.html["Befehlszeilenschnittstelle (CLI)"] oder die link:task_deploy_cluster.html["Web-Benutzeroberfläche"] wird mit dem Verwaltungsdienstprogramm ONTAP Select Deploy bereitgestellt. . Migrieren Sie die Daten gegebenenfalls in den neuen Cluster, indem Sie link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["SnapMirror -Replikation"^] .
+
+====
+Sie initiieren die Verfahren zur Clustererweiterung und -kontraktion von ONTAP Select Deploy über die CLI, API oder Weboberfläche.
 
 
 
@@ -24,9 +35,9 @@ Das Verfahren wird über ONTAP Select Deploy über die CLI, API oder Webschnitts
 
 Die Funktionen zur Cluster-Erweiterung und -Verkleinerung sind wie folgt eingeschränkt:
 
-* Die Unterstützung ist auf auf auf ESX Hypervisor-Hosts erstellte Cluster beschränkt. Die folgenden ESX-Versionen sind mit ONTAP Select 9.15.1 kompatibel:
+* Die Unterstützung ist auf Cluster beschränkt, die auf ESX-Hypervisor-Hosts erstellt wurden. Die folgenden ESX-Versionen sind mit ONTAP Select 9.15.1 und höher kompatibel:
 +
-** ESXi 8.0 U3 (verfügbar für ONTAP 9.15.1P4 oder eine neuere verfügbare Patch-Version)
+** ESXi 8.0 U3
 ** ESXi 8.0 U2
 ** ESXi 8.0 U1
 ** ESXi 8.0GA
@@ -34,8 +45,6 @@ Die Funktionen zur Cluster-Erweiterung und -Verkleinerung sind wie folgt eingesc
 ** ESXi 7.0
 
 
-* Cluster mit sechs Nodes können nur auf Cluster mit acht Nodes erweitert werden.
-* Eine Verkleinerung ist nur von Clustern mit acht Nodes auf Cluster mit sechs Nodes möglich.
 
 
 
@@ -48,7 +57,7 @@ Mit der Cluster-Erweiterungsfunktion können Sie die Größe eines vorhandenen C
 Zur Vorbereitung der Cluster-Erweiterung werden neue ESX-Hosts zur Bestandsaufnahme hinzugefügt und die Details zu den neuen Nodes zugewiesen. Vor dem Starten der Cluster-Erweiterung überprüft eine Netzwerkprüfung das ausgewählte interne Netzwerk.
 
 .Bevor Sie beginnen
-* Wenn Sie ein Cluster mit mehreren Nodes bereitstellen, sollten Sie mit dem vertraut seinlink:https://docs.netapp.com/us-en/ontap-select/task_adm_connectivity.html["Prüfung der Netzwerkverbindung"].
+* Wenn Sie einen Cluster mit mehreren Knoten bereitstellen, sollten Sie mit der Netzwerkkonnektivitätsprüfung vertraut sein. Sie können den Netzwerkkonnektivitäts-Checker mit dem link:task_adm_connectivity.html["Web-Benutzeroberfläche"] oder die link:task_cli_connectivity.html["Befehlszeilenschnittstelle (CLI)"] .
 * Vergewissern Sie sich, dass Sie über die Lizenzdetails für die neuen Nodes verfügen.
 
 
