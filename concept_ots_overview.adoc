@@ -97,6 +97,7 @@ Mehrere ONTAP Funktionen werden von ONTAP Select nicht unterstützt. In den meis
 * Serviceprozessoren
 * SVM-Migration
 * SnapLock-Compliance
+* SnapMirror aktive Synchronisierung
 * VMware HCX
 
 
