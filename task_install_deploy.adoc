@@ -18,31 +18,29 @@ Sie müssen das ONTAP Select Deploy-Administrationsprogramm installieren und das
 
 
 
-== Virtual Machine Image herunterladen
+== Schritt 1: Laden Sie das Image der virtuellen Maschine herunter
 
-Das ONTAP Select Paket können Sie auf der NetApp Support-Webseite herunterladen.
+Laden Sie das ONTAP Select Paket von der NetApp Support-Website herunter.
 
 .Bevor Sie beginnen
 https://mysupport.netapp.com/site/user/registration["Sie verfügen über ein registriertes NetApp Support Site Konto"^].
 
 .Über diese Aufgabe
-Das Dienstprogramm ONTAP Select Deploy Administration ist als virtuelle Maschine (VM) auf Basis des OVF-Standards (Open Virtualization Format) verpackt. Die einzelne komprimierte Datei hat das Suffix `ova`. Die VM stellt die bereitzustellenden Server- und Installations-Images für ONTAP Select Nodes zur Verfügung.
+Das ONTAP Select Deploy-Verwaltungsprogramm ist als virtuelle Maschine (VM) basierend auf dem Open Virtualization Format (OVF)-Standard bereitgestellt. Die einzelne komprimierte Datei hat die Endung `OVA` für ESXi-Hosts und `TGZ` für KVM-Hosts. Die VM stellt den Deploy-Server und Installationsabbilder für ONTAP Select-Knoten bereit.
 
 .Schritte
-. Greifen Sie über einen Webbrowser auf das link:https://mysupport.netapp.com/site/["NetApp Support-Website"^]zu, und melden Sie sich an.
-. Wählen Sie aus dem Menü *Downloads*, und wählen Sie dann aus dem Dropdown-Menü *Downloads* aus.
-. Wählen Sie auf der Seite Downloads unter Alle Produkte A-Z den Buchstaben *O* aus.
-. Scrollen Sie nach unten und wählen Sie *ONTAP Select*.
-. Wählen Sie die gewünschte Version des Pakets aus.
+. Rufen Sie die link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site Downloads"^] Seite auf.
+. Scrollen Sie nach unten und wählen Sie *ONTAP Select Deploy* aus.
+. Wählen Sie die gewünschte ONTAP Select Version aus.
 . Lesen Sie die Endbenutzer-Lizenzvereinbarung (EULA), und wählen Sie *Accept & Continue* aus.
-. Wählen Sie das entsprechende Paket aus, und laden Sie es herunter, um alle Aufforderungen bei Bedarf zu beantworten.
+. Wählen Sie das passende *ONTAP Select Deploy Install*-Paket aus und laden Sie es herunter. Beantworten Sie alle erforderlichen Eingabeaufforderungen.
 
 
 
 
-== Überprüfen Sie die ONTAP Select Deploy OVA-Signatur
+== Schritt 2: Überprüfen Sie die ONTAP Select Deploy OVA-Signatur
 
-Überprüfen Sie vor der Installation des Installationspakets die OVA-Signatur (Open Virtualization Appliance) von ONTAP Select.
+Überprüfen Sie die Signatur der ONTAP Select Open Virtualization Appliance (OVA), bevor Sie das Installationspaket installieren.
 
 .Bevor Sie beginnen
 Überprüfen Sie, ob Ihr System die folgenden Anforderungen erfüllt:
@@ -52,7 +50,7 @@ Das Dienstprogramm ONTAP Select Deploy Administration ist als virtuelle Maschine
 
 
 .Schritte
-. Beziehen Sie die folgenden Dateien auf der Seite zum Herunterladen des Produkts auf der NetApp Support-Website:
+. Laden Sie die folgenden Dateien von der Produkt-Downloadseite auf der NetApp Support-Website herunter:
 +
 [cols="2*"]
 |===
@@ -74,9 +72,9 @@ Das Dienstprogramm ONTAP Select Deploy Administration ist als virtuelle Maschine
 | `ONTAPdeploy.ova.sig` | Der SHA-256-Algorithmus wird gehasht und dann vom Remote Support Agent (RSA) mit dem Schlüssel und der Signatur des Installers signiert `csc-prod`. 
 |===
 . Überprüfen Sie, ob `ONTAPdeploy.ova.sig` die Datei die zugeordneten Zertifikate und Validierungsbefehle verwendet.
-. Überprüfen Sie die Signatur mit folgendem Befehl:
+. Überprüfen Sie die Signatur:
 +
-[listing]
+[source, cli]
 ----
 openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTAPdeploy.ova.sig  ONTAPdeploy.ova
 ----
@@ -84,9 +82,9 @@ openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTA
 
 
 
-== Stellen Sie die virtuelle Maschine bereit
+== Schritt 3: Die virtuelle Maschine bereitstellen
 
-Sie müssen die ONTAP Select Deploy VM mithilfe des OVF VM Image installieren und starten. Im Rahmen der Installation konfigurieren Sie die Netzwerkschnittstelle so, dass DHCP oder eine statische IP-Konfiguration verwendet wird.
+Installieren und starten Sie die ONTAP Select Deploy VM mithilfe des OVF-VM-Images. Im Rahmen der Installation konfigurieren Sie die Netzwerkschnittstelle für die Verwendung von DHCP oder einer statischen IP-Konfiguration.
 
 .Bevor Sie beginnen
 Für einen ESXi-Hypervisor müssen Sie die Bereitstellung der ONTAP Select Deploy VM vorbereiten:
@@ -117,14 +115,14 @@ Welche Schritte Sie befolgen, hängt davon ab, ob Sie einen ESXi- oder KVM-Hyper
 --
 . Greifen Sie auf den vSphere-Client zu und melden Sie sich an.
 . Navigieren Sie zum entsprechenden Speicherort in der Hierarchie, und wählen Sie *OVF-Vorlage bereitstellen* aus.
-. Wählen Sie die OVA-Datei aus, und schließen Sie den Assistenten zur Bereitstellung der OVF-Vorlage aus. Wählen Sie dabei die für Ihre Umgebung geeigneten Optionen aus.
+. Wählen Sie die OVA-Datei aus und schließen Sie den Assistenten zum Bereitstellen der OVF-Vorlage ab. Wählen Sie die für Ihre Umgebung geeigneten Optionen aus.
 +
 Sie müssen das Passwort für das Administratorkonto definieren. Sie müssen dieses Passwort angeben, wenn Sie sich beim Dienstprogramm Deploy anmelden.
 
-. Wählen Sie nach der Bereitstellung der VM die neue VM aus, und schalten Sie sie ein, wenn sie aufgrund Ihrer Angaben zum Implementierungsassistenten nicht bereits eingeschaltet ist.
+. Nachdem die VM bereitgestellt wurde, wählen Sie die neue VM aus. Falls sie basierend auf Ihren Eingaben im Bereitstellungsassistenten noch nicht eingeschaltet ist, schalten Sie sie manuell ein.
 . Falls erforderlich, können Sie das Bereitstellungsnetzwerk über die VM-Konsole konfigurieren:
 +
-.. Klicken Sie auf die Registerkarte *Konsole*, um auf die Setup-Shell des ESXi-Hosts zuzugreifen und den Einschalungsprozess zu überwachen.
+.. Wählen Sie die Registerkarte *Console*, um auf die ESXi-Host-Setup-Shell zuzugreifen und den Einschaltvorgang zu überwachen.
 .. Warten Sie auf die folgende Eingabeaufforderung:
 +
 Hostname:
@@ -140,7 +138,7 @@ Geben Sie dem Admin-Benutzer ein Passwort ein:
 DHCP zum Festlegen von Netzwerkinformationen verwenden? [n]:
 
 .. Geben Sie *n* ein, um eine statische IP-Konfiguration zu definieren, oder *y*, um DHCP zu verwenden, und wählen Sie *Enter*.
-.. Wenn Sie eine statische Konfiguration auswählen, geben Sie bei Bedarf alle Informationen zur Netzwerkkonfiguration ein.
+.. Wenn Sie eine statische Konfiguration wählen, geben Sie alle erforderlichen Netzwerkkonfigurationsinformationen an.
 
 
 
@@ -200,9 +198,9 @@ Use DHCP to set networking information? [n]:
 ====
 
 
-== Melden Sie sich bei der Webschnittstelle „Bereitstellen“ an
+== Schritt 4: Sign in bei der Deploy-Weboberfläche
 
-Melden Sie sich an der Web-Benutzeroberfläche an, um zu bestätigen, dass das Dienstprogramm zum Bereitstellen verfügbar ist und die Erstkonfiguration durchführen.
+Sign in zur Web-Benutzeroberfläche, um zu bestätigen, dass das Deploy-Dienstprogramm verfügbar ist, und führen Sie die Erstkonfiguration durch.
 
 .Schritte
 . Rufen Sie im Browser das Dienstprogramm Deploy unter Verwendung der IP-Adresse oder des Domain-Namens auf:
@@ -220,5 +218,10 @@ Melden Sie sich an der Web-Benutzeroberfläche an, um zu bestätigen, dass das D
 
 
 
+.Was kommt als Nächstes?
+link:task_deploy_cluster.html["Implementieren eines ONTAP Select-Clusters"]
+
 .Verwandte Informationen
-link:task_cli_signing_in.html["Melden Sie sich an, um die Implementierung über SSH durchzuführen"]
+* link:task_cli_signing_in.html["Erfahren Sie mehr über die Anmeldung bei Deploy mit SSH"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["Erfahren Sie mehr über die Bereitstellung einer 90-tägigen Evaluierungsinstanz eines ONTAP Select Clusters"]
+
