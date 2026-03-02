@@ -48,7 +48,7 @@ Jede Instanz des License Manager und damit jede entsprechende Deploy Utility-Ins
 Sie können die Lizenzsperre-ID für Ihre Deploy-Instanz mithilfe der Web-Benutzeroberfläche auf folgende Weise bestimmen:
 
 * Seite „erste Schritte“ Diese Seite wird angezeigt, wenn Sie sich zum ersten Mal bei der Bereitstellung anmelden. Sie können die Seite auch anzeigen, indem Sie auf das Dropdown-Feld oben rechts auf der Seite klicken und „erste Schritte“ auswählen. Die LLID wird im Abschnitt Lizenzen hinzufügen angezeigt.
-* Verwaltung Klicken Sie oben auf der Seite auf die Registerkarte *Administration* und dann auf *Systeme* und *Einstellungen*.
+* Administration Klicken Sie oben auf der Seite auf die Registerkarte *Administration* und dann auf *Systems & AutoSupport*.
 
 
 
