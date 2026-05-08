@@ -3710,4 +3710,5 @@
   <block id="2cc135ee22f21247b52a24a050dc5f69" category="list-text">Eine Premium- oder Premium XL-Lizenz</block>
   <block id="3712f888ec8c939491ff4fe2129b3d6e" category="paragraph">MetroCluster SDS ist eine Konfigurationsoption beim Erstellen eines Zwei-Node-ONTAP Select Clusters. Es ähnelt einer Remote Office/Branch Office (ROBO) Bereitstellung. Diese erweiterte Zwei-Node-Bereitstellung bietet zusätzliche Anwendungsfallszenarien. Sie sollten sich der Anforderungen und Einschränkungen bewusst sein, wenn Sie die Bereitstellung von MetroCluster SDS vorbereiten.</block>
   <block id="c661d298cd420b7b6d7d3a82d9089108" category="admonition">Der VMFS-Overhead ist ungleich Null (siehe VMware KB 1001618), und der Versuch, den gesamten von einem Datenspeicher als frei gemeldeten Speicherplatz zu nutzen, hat bei Cluster-Erstellungsvorgängen zu irrtümlichen Fehlern geführt.</block>
+  <block id="7436b418bed093768e360d32105591d2" category="sidebar">ONTAP Select Dokumentation</block>
 </blocks>
