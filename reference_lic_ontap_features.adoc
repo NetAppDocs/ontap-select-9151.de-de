@@ -28,6 +28,9 @@ Die folgenden Features sind bei ONTAP Select enthalten und standardmäßig lizen
 * CIFS
 * Deduplizierung und Komprimierung
 * FlexCache
++
+Es gibt Einschränkungen bei der Unterstützung von FlexCache Write-Back mit ONTAP Select. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap-select/concept_ots_overview.html#flexcache-write-back-with-ontap-select["FlexCache Write-Back mit ONTAP Select"^].
+
 * FlexClone
 * ISCSI
 * NDMP
